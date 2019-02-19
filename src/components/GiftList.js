@@ -4,9 +4,10 @@ import { Container, ListGroup } from "reactstrap";
 import { connect } from "react-redux";
 import { getGifts, deleteGift } from "../actions/giftActions";
 import PropTypes from "prop-types";
-import LoadingFixed from "./LoadingFixed";
+import LoadingSpinner from "./LoadingSpinner";
 import axios from "axios";
 import Gift from "./Gift";
+const API = "http://dovanuwp.bart.lt";
 
 class GiftList extends Component {
   state = {
@@ -17,7 +18,7 @@ class GiftList extends Component {
     this.getGifts();
   }
   getGifts = () => {
-    axios.get("/wp-json/wp/v2/gifts").then(res =>
+    axios.get(`${API}/wp-json/wp/v2/gifts`).then(res =>
       this.setState({
         gifts: res.data,
         isLoaded: true
@@ -29,7 +30,7 @@ class GiftList extends Component {
   };
   render() {
     if (!this.state.isLoaded) {
-      return <LoadingFixed />;
+      return <LoadingSpinner />;
     }
     return (
       <Container>

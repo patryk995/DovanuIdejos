@@ -9,6 +9,9 @@ import {
   Media
 } from "reactstrap";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
+const API = "http://dovanuwp.bart.lt";
+
 export class Gift extends Component {
   state = {
     imgUrl: "",
@@ -16,7 +19,7 @@ export class Gift extends Component {
   };
   componentDidMount() {
     const featured_media = this.props.gift.featured_media;
-    axios.get(`/wp-json/wp/v2/media/${featured_media}`).then(res => {
+    axios.get(`${API}/wp-json/wp/v2/media/${featured_media}`).then(res => {
       this.setState({
         imgUrl: res.data.media_details.sizes.thumbnail.source_url,
         imgIsLoaded: true
@@ -26,14 +29,23 @@ export class Gift extends Component {
   render() {
     const gift = this.props.gift;
     return (
-      <Media className="py-3 my-4">
-        <Media left href="#">
-          <Media
-            object
-            src={this.state.imgUrl}
-            alt={gift.title.rendered}
-            className="mr-3"
-          />
+      <Media className="py-3 my-4 flex-column flex-sm-row">
+        <Media
+          className="mx-auto"
+          left
+          href="#"
+          style={{ width: "182px", height: "182px" }}
+        >
+          {this.state.imgIsLoaded ? (
+            <Media
+              object
+              src={this.state.imgUrl}
+              alt={gift.title.rendered}
+              className="d-block mx-auto p-3"
+            />
+          ) : (
+            <LoadingSpinner />
+          )}
         </Media>
         <Media body>
           <Media heading>{gift.title.rendered}</Media>

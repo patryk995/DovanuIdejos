@@ -50,17 +50,6 @@ class AppNavbar extends Component {
 
               <NavItem>
                 <NavLinkR
-                  to="/modal"
-                  exact
-                  activeClassName="active"
-                  className="nav-link"
-                >
-                  Įkelti Dovanas
-                </NavLinkR>
-              </NavItem>
-
-              <NavItem>
-                <NavLinkR
                   to="/list"
                   activeClassName="active"
                   className="nav-link"

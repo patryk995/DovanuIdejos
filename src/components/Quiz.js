@@ -8,7 +8,8 @@ import { Redirect } from "react-router-dom";
 import SimpleQuestion from "./questions/SimpleQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
 import FilteredGiftList from "./FilteredGiftList";
-import LoadingFixed from "./LoadingFixed";
+import LoadingSpinner from "./LoadingSpinner";
+const API = "http://dovanuwp.bart.lt";
 export class Quiz extends Component {
   state = {
     questions1: [
@@ -45,7 +46,7 @@ export class Quiz extends Component {
 
   componentWillMount() {
     axios
-      .get("/wp-json/wp/v2/questions")
+      .get(`${API}/wp-json/wp/v2/questions`)
       .then(res => {
         const tempQuestions = res.data;
         tempQuestions.map(question => {
@@ -87,7 +88,7 @@ export class Quiz extends Component {
 
   render() {
     if (!this.state.isLoaded) {
-      return <LoadingFixed />;
+      return <LoadingSpinner />;
     }
     if (this.state.questionsAnswered === this.state.questionsCount) {
       return <FilteredGiftList answers={this.state.answers} />;

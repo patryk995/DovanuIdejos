@@ -34,9 +34,9 @@ export class RangeQuestion extends Component {
     return (
       <Container className="question py-2 px-5">
         <h3 className="mb-3 text-center">{question.title.rendered}</h3>
-        <Row>
+        <Row className="flex-column flex-md-row flex-nowrap">
           <Col>
-            <InputGroup className="mx-auto">
+            <InputGroup className="mx-auto flex-nowrap justify-content-center">
               <InputGroupAddon addonType="prepend">Nuo</InputGroupAddon>
               <Input
                 value={this.state.minPrice}
@@ -47,8 +47,8 @@ export class RangeQuestion extends Component {
               <InputGroupAddon addonType="append">&euro;</InputGroupAddon>
             </InputGroup>
           </Col>
-          <Col md="8">
-            <Container className="h-100">
+          <Col className="col-md-6 col-xl-8">
+            <Container className="h-100 py-4 py-md-0">
               <Row className="d-flex h-100">
                 <Range
                   style={{ margin: "auto" }}
@@ -59,7 +59,7 @@ export class RangeQuestion extends Component {
             </Container>
           </Col>
           <Col>
-            <InputGroup className="mx-auto">
+            <InputGroup className="mx-auto justify-content-center flex-nowrap">
               <InputGroupAddon addonType="prepend">Iki</InputGroupAddon>
 
               <Input

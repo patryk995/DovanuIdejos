@@ -3,7 +3,10 @@ import axios from "axios";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Badge, Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import Gift from "./Gift";
-import LoadingFixed from "./LoadingFixed";
+import LoadingSpinner from "./LoadingSpinner";
+
+const API = "http://dovanuwp.bart.lt";
+
 export class FilteredGiftList extends Component {
   state = {
     gifts: [],
@@ -20,7 +23,7 @@ export class FilteredGiftList extends Component {
     let urlparams = "?";
     axios
       .get(
-        `/wp-json/filt/v1/gender/${gender}/age/${age}/pmin/${pricemin}/pmax/${pricemax}`
+        `${API}/wp-json/filt/v1/gender/${gender}/age/${age}/pmin/${pricemin}/pmax/${pricemax}`
       )
       .then(res => {
         giftIds = res.data;
@@ -42,11 +45,11 @@ export class FilteredGiftList extends Component {
   };
   render() {
     if (!this.state.isLoaded) {
-      return <LoadingFixed />;
+      return <LoadingSpinner />;
     }
     return (
       <Container>
-        <TransitionGroup className="shopping-list">
+        <TransitionGroup className="">
           {this.state.gifts.map(({ id, ...gift }) => (
             <CSSTransition key={id} timeout={500} classNames="fade">
               <Gift gift={gift} />

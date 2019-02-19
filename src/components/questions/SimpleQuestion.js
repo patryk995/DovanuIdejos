@@ -14,13 +14,13 @@ export class SimpleQuestion extends Component {
   render() {
     const answers = this.props.question.acf.answers;
     const question = this.props.question;
+
     return (
       <Container className="question py-2 px-5">
         <h3 className="mb-3 text-center">{question.title.rendered}</h3>
-        <button onClick={this.printAnswers}>Click</button>
         <Row>
           {answers.map(answer => (
-            <Col key={answer.value}>
+            <Col className="col-12 my-3 col-md" key={answer.value}>
               <Button
                 block
                 color="primary"
