@@ -31,7 +31,7 @@ export class FilteredGiftList extends Component {
           giftIds.map(giftId => {
             urlparams += `&include[]=${giftId}`;
           });
-          axios.get("/wp-json/wp/v2/gifts" + urlparams).then(res =>
+          axios.get(`${API}/wp-json/wp/v2/gifts${urlparams}`).then(res =>
             this.setState({
               gifts: res.data,
               isLoaded: true

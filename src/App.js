@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./LuxBootstrap.css";
+
 import { Provider } from "react-redux";
-import store from "./store";
+// import store from "./store";
 import {
   HashRouter as Router,
   Switch,
@@ -19,22 +21,18 @@ import Quiz from "./components/Quiz";
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <>
-            <AppNavbar />
-            <div className="container">
-              <Switch>
-                <Route exact path="/" component={Welcome} />
-                <Route exact path="/list" component={GiftList} />
-                {/* <Route exact path="/modal" component={ItemModal} /> */}
-                <Route exact path="/quiz" component={Quiz} />
-                {/* <Route exact path="/ftlist" component={FilteredGiftList} /> */}
-              </Switch>
-            </div>
-          </>
-        </Router>
-      </Provider>
+      <Router>
+        <>
+          <AppNavbar />
+          <Switch>
+            <Route exact path="/" component={Welcome} />
+            <Route exact path="/list" component={GiftList} />
+            {/* <Route exact path="/modal" component={ItemModal} /> */}
+            <Route exact path="/quiz" component={Quiz} />
+            {/* <Route exact path="/ftlist" component={FilteredGiftList} /> */}
+          </Switch>
+        </>
+      </Router>
     );
   }
 }

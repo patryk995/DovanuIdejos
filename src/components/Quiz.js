@@ -12,35 +12,11 @@ import LoadingSpinner from "./LoadingSpinner";
 const API = "http://dovanuwp.bart.lt";
 export class Quiz extends Component {
   state = {
-    questions1: [
-      {
-        title: "Kokia lytis?",
-        name: "gender",
-        answers: [
-          { text: "Vyras", value: "m" },
-          { text: "Moteris", value: "f" }
-        ]
-      },
-      {
-        title: "Kokiai amžiaus grupei priklauso?",
-        name: "age",
-        answers: [
-          { text: "Vaikų(iki 12 metų)", value: "child" },
-          { text: "Nepilnamečių (paauglys)", value: "teen" },
-          { text: "Suagusiejų", value: "adult" },
-          { text: "Senjorų", value: "senior" }
-        ]
-      },
-      {
-        title: "Koks yra dovanos biudžetas?",
-        name: "price",
-        answers: [{ text: "nuo", value: "0" }, { text: "iki", value: "200" }]
-      }
-    ],
     questions: [],
     questionsAnswered: 0,
     questionsCount: 100,
     isLoaded: false,
+    error: false,
     answers: []
   };
 
@@ -71,7 +47,13 @@ export class Quiz extends Component {
           isLoaded: true
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          isLoaded: true,
+          error: true
+        });
+      });
   }
 
   onClick = e => {
@@ -88,27 +70,61 @@ export class Quiz extends Component {
 
   render() {
     if (!this.state.isLoaded) {
-      return <LoadingSpinner />;
+      return (
+        <div className="py-5">
+          <LoadingSpinner />
+        </div>
+      );
     }
-    if (this.state.questionsAnswered === this.state.questionsCount) {
-      return <FilteredGiftList answers={this.state.answers} />;
+    if (
+      this.state.questionsAnswered === this.state.questionsCount &&
+      !this.state.error
+    ) {
+      return (
+        <div className="py-5">
+          <FilteredGiftList answers={this.state.answers} />;
+        </div>
+      );
+    }
+    if (this.state.error) {
+      return (
+        <div className="alert alert-dismissible alert-warning">
+          <button type="button" className="close" data-dismiss="alert">
+            &times;
+          </button>
+          <h4 className="alert-heading">Warning!</h4>
+          <p className="mb-0">
+            Best check yo self, you're not looking too good. Nulla vitae elit
+            libero, a pharetra augue. Praesent commodo cursus magna,{" "}
+            <a href="#" class="alert-link">
+              vel scelerisque nisl consectetur et
+            </a>
+            .
+          </p>
+        </div>
+      );
     }
     if (
       this.state.questions[this.state.questionsAnswered].acf.category ===
       "price"
     ) {
       return (
-        <RangeQuestion
+        <div className="py-5">
+          <RangeQuestion
+            question={this.state.questions[this.state.questionsAnswered]}
+            onClick={this.onClick}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className="py-5">
+        <SimpleQuestion
           question={this.state.questions[this.state.questionsAnswered]}
           onClick={this.onClick}
         />
-      );
-    }
-    return (
-      <SimpleQuestion
-        question={this.state.questions[this.state.questionsAnswered]}
-        onClick={this.onClick}
-      />
+      </div>
     );
   }
 }
