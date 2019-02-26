@@ -9,7 +9,7 @@ import SimpleQuestion from "./questions/SimpleQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
 import FilteredGiftList from "./FilteredGiftList";
 import LoadingSpinner from "./LoadingSpinner";
-const API = "http://dovanuwp.bart.lt";
+const API = "http://dovanuidejos.bart.lt/wp";
 export class Quiz extends Component {
   state = {
     questions: [],
@@ -67,6 +67,14 @@ export class Quiz extends Component {
       questionsAnswered: prevState.questionsAnswered + 1
     }));
   };
+  resetQuiz = () => {
+    this.setState({
+      questionsAnswered: 0,
+      isLoaded: true,
+      error: false,
+      answers: []
+    });
+  };
 
   render() {
     if (!this.state.isLoaded) {
@@ -81,9 +89,10 @@ export class Quiz extends Component {
       !this.state.error
     ) {
       return (
-        <div className="py-5">
-          <FilteredGiftList answers={this.state.answers} />;
-        </div>
+        <FilteredGiftList
+          answers={this.state.answers}
+          resetQuiz={this.resetQuiz}
+        />
       );
     }
     if (this.state.error) {
@@ -92,14 +101,9 @@ export class Quiz extends Component {
           <button type="button" className="close" data-dismiss="alert">
             &times;
           </button>
-          <h4 className="alert-heading">Warning!</h4>
+          <h4 className="alert-heading">Klaida!</h4>
           <p className="mb-0">
-            Best check yo self, you're not looking too good. Nulla vitae elit
-            libero, a pharetra augue. Praesent commodo cursus magna,{" "}
-            <a href="#" class="alert-link">
-              vel scelerisque nisl consectetur et
-            </a>
-            .
+            Atsiprašome, įvyko nenumatyta klaida su klausimu formavimu.
           </p>
         </div>
       );

@@ -1,6 +1,3 @@
-.remove-btn {
-  margin-right: 0.5rem;
-}
 .fade-enter {
   opacity: 0.01;
 }
@@ -27,7 +24,7 @@
 }
 
 .gift-background {
-  background: url(/static/media/gift-background.1636907c.jpg) 0% 0% / cover;
+  background: url(./images/gift-background.jpg) 0% 0% / cover;
   padding: 105px 0 50px;
   top: 0;
   position: absolute;

@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
-const API = "http://dovanuwp.bart.lt";
+const API = "http://dovanuidejos.bart.lt/wp";
 
 export class Gift extends Component {
   state = {

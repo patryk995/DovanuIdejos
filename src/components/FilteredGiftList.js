@@ -5,12 +5,14 @@ import { Badge, Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import Gift from "./Gift";
 import LoadingSpinner from "./LoadingSpinner";
 
-const API = "http://dovanuwp.bart.lt";
+const API = "http://dovanuidejos.bart.lt/wp";
 
 export class FilteredGiftList extends Component {
   state = {
     gifts: [],
-    isLoaded: false
+    isLoaded: false,
+    error: false,
+    errorMsg: ""
   };
   componentDidMount() {
     this.getFilteredGifts();
@@ -37,6 +39,12 @@ export class FilteredGiftList extends Component {
               isLoaded: true
             })
           );
+        } else {
+          this.setState({
+            isLoaded: true,
+            error: true,
+            errorMsg: "Pagal pateiktus duomenis dovanų nerasta."
+          });
         }
       });
   };
@@ -45,11 +53,32 @@ export class FilteredGiftList extends Component {
   };
   render() {
     if (!this.state.isLoaded) {
-      return <LoadingSpinner />;
+      return (
+        <div className="py-5">
+          <LoadingSpinner />
+        </div>
+      );
+    }
+    if (this.state.error) {
+      return (
+        <div className="py-5 text-center">
+          <h4 className="">Atsiprašome, bet...</h4>
+          <p className="mb-0">{this.state.errorMsg}</p>
+          <Button
+            color="primary"
+            size="lg"
+            className="my-5"
+            onClick={this.props.resetQuiz}
+          >
+            Bandyti dar kartą!
+          </Button>
+        </div>
+      );
     }
     return (
       <Container>
-        <TransitionGroup className="">
+        <h1 className="text-center pt-3">Dovanų sąrašas</h1>
+        <TransitionGroup>
           {this.state.gifts.map(({ id, ...gift }) => (
             <CSSTransition key={id} timeout={500} classNames="fade">
               <Gift gift={gift} />

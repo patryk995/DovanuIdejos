@@ -17,9 +17,11 @@ export class RangeQuestion extends Component {
     maxPrice: 50
   };
   onInputChange = e => {
-    this.setState({
-      [e.target.name]: parseInt(e.target.value)
-    });
+    if (e.target.value) {
+      this.setState({
+        [e.target.name]: parseInt(e.target.value)
+      });
+    }
   };
   onRangeChange = rangeValues => {
     let [start, end] = rangeValues;
@@ -39,6 +41,7 @@ export class RangeQuestion extends Component {
             <InputGroup className="mx-auto flex-nowrap justify-content-center">
               <InputGroupAddon addonType="prepend">Nuo</InputGroupAddon>
               <Input
+                type="number"
                 value={this.state.minPrice}
                 style={{ maxWidth: "60px" }}
                 name="minPrice"
@@ -63,6 +66,7 @@ export class RangeQuestion extends Component {
               <InputGroupAddon addonType="prepend">Iki</InputGroupAddon>
 
               <Input
+                type="number"
                 value={this.state.maxPrice}
                 style={{ maxWidth: "60px" }}
                 name="maxPrice"
