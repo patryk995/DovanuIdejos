@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Container } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSpinner from "./LoadingSpinner";
@@ -63,7 +62,6 @@ class GiftList extends Component {
     return (
       <Container>
         <h1 className="text-center pt-3">Visas dovanų sąrašas</h1>
-        {/* <TransitionGroup className="gift-list"> */}
         <InfiniteScroll
           dataLength={this.state.gifts.length}
           next={this.loadFunc}
@@ -71,12 +69,9 @@ class GiftList extends Component {
           loader={<LoadingSpinner />}
         >
           {this.state.gifts.map(({ id, name, ...gift }) => (
-            // <CSSTransition key={id} timeout={500} classNames="fade">
             <Gift key={id} gift={gift} />
-            // </CSSTransition>
           ))}
         </InfiniteScroll>
-        {/* </TransitionGroup> */}
       </Container>
     );
   }

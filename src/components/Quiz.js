@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import axios from "axios";
-
-import { Redirect } from "react-router-dom";
-// import { addAnswer } from "../actions/answerActions";
-// import { getFilteredGifts } from "../actions/giftActions";
+import { Progress } from "reactstrap";
 import SimpleQuestion from "./questions/SimpleQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
 import FilteredGiftList from "./FilteredGiftList";
@@ -108,27 +104,29 @@ export class Quiz extends Component {
         </div>
       );
     }
-    if (
-      this.state.questions[this.state.questionsAnswered].acf.category ===
-      "price"
-    ) {
-      return (
-        <div className="py-5">
-          <RangeQuestion
-            question={this.state.questions[this.state.questionsAnswered]}
-            onClick={this.onClick}
-          />
-        </div>
-      );
-    }
-
     return (
-      <div className="py-5">
-        <SimpleQuestion
-          question={this.state.questions[this.state.questionsAnswered]}
-          onClick={this.onClick}
+      <>
+        <Progress
+          barClassName="bg-info"
+          value={
+            (this.state.questionsAnswered * 100) / this.state.questionsCount
+          }
         />
-      </div>
+        <div className="py-5">
+          {this.state.questions[this.state.questionsAnswered].acf
+            .advancedtype ? (
+            <RangeQuestion
+              question={this.state.questions[this.state.questionsAnswered]}
+              onClick={this.onClick}
+            />
+          ) : (
+            <SimpleQuestion
+              question={this.state.questions[this.state.questionsAnswered]}
+              onClick={this.onClick}
+            />
+          )}
+        </div>
+      </>
     );
   }
 }
